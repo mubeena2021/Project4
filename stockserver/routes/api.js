@@ -1,36 +1,52 @@
-const { request } = require('express');
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 const yahooStockPrices = require('yahoo-stock-prices');
 const db = require('../config/database');
 
 
+router.get('/', async (req, res) => {
+  res.send("work");
+  console.log(res);
+  });
+  
 
-router.get('/search/:symbol_name', async function(req, res) {
-const data = await yahooStockPrices.getCurrentData(req.params.symbol_name);
-res.json(data);
+// SEARCH STOCK SYMBOL
+router.get('/search/:symbol', async (req, res) => {
+const data = await yahooStockPrices.getCurrentData(req.params.symbol);
+res.send(data);
+if(!data){
+  res.send("please type in a valid symbol")
+}
+console.log(data);
+});
+
+// LIST OF STOCKS IN PORTFOLIO
+  router.get('/portfolio', async (req, res) => {
+  const result = await db.promise().query(`SELECT * FROM  portfolio`);
+  res.status(200).send(result)
+});
+
+//BUY STOCKS
+router.post('/buy', async (req, res ) => {
+console.log(req.body);
+let {symbol, quantity, price} = req.body;
+console.log(symbol, quantity, price);
+db.promise().query(`INSERT INTO portfolio (symbol, quantity, price) VALUES("${symbol}", ${quantity}, "${price}")`)
+});
+ 
+
+// SELL STOCKS
+router.delete('/:sell', async (req, res ) => {
+let {symbol, quantity, price} = req.body;
+res.send(req.params)
+console.log(" it works " + req.body)
+db.promise().query(`DELETE FROM portfolio WHERE symbol = '${symbol}' `)
+
 });
 
 
 
 
-
-
-/*
-router.get("/search/:symbol", async (req, res)=>{
-//res.send("works!");
-const result = db.query(`SELECT * FROM  portfolio`);
-console.log(result);
-res.send(200);
-
-});
-*/
-
-//database.connect();
-
-//database.connect((err) => {
- // if (err) throw err;
-//});
 
 
 module.exports = router;
