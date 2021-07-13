@@ -1,0 +1,23 @@
+.btn:focus {outline: none;box-shadow: none;}
+.btn:hover{font-weight:600; }
+
+@media screen and (max-width:620px) {
+
+    .searchBox{width: 100%; flex-flow: column; align-self: center }
+    .search-Input{width: 95%; margin-bottom: 3px;}
+    .buyBox{ flex-flow: column; align-self: center;margin-bottom: 3px;}
+    .stockList{display:flex; flex-flow: column; align-self: center }
+    .btn{ width:95%; align-self: center;}
+
+}
+
+
+@media screen and (max-width: 277px) {
+
+    .searchBox{ flex-flow: column;  align-self: center}
+    .search-Input{width: 95%; margin-bottom: 3px;}
+    .buyBox{ flex-flow: column; align-self: center; margin-bottom: 3px;}
+    .stockList{ display:flex; flex-flow: column; align-self: center}
+    .btn{ width:95%;  align-self: center}
+
+    }
