@@ -36,15 +36,15 @@ db.promise().query(`INSERT INTO portfolio (symbol, quantity, price) VALUES("${sy
  
 
 // SELL STOCKS
-router.delete('/:sell', async (req, res ) => {
-let {symbol, quantity, price} = req.body;
-res.send(req.params)
-console.log(" it works " + req.body)
-db.promise().query(`DELETE FROM portfolio WHERE symbol = '${symbol}' `)
+router.delete('/portfolio/:id', async (req, res ) => {
+//let {symbol, quantity, price} = req.params;
+//res.send( req , "working")
+console.log(" it works " + req.params)
+res.send("works");
+
+//db.promise().query(` DELETE FROM portfolio WHERE symbol = '${symbol}' `)
 
 });
-
-
 
 
 
