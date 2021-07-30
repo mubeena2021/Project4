@@ -27,11 +27,11 @@ console.log(data);
 });
 
 //BUY STOCKS
-router.post('/buy', async (req, res ) => {
+router.post('/:buy', async (req, res ) => {
 console.log(req.body);
-let {symbol, quantity, price} = req.body;
-console.log(symbol, quantity, price);
-db.promise().query(`INSERT INTO portfolio (symbol, quantity, price) VALUES("${symbol}", ${quantity}, "${price}")`)
+let {symbol, quantity, price, value } = req.body;
+console.log(symbol, quantity, price,value);
+db.promise().query(`INSERT INTO portfolio (symbol, quantity, price, value) VALUES("${symbol}", ${quantity}, "${price}", "${value}")`)
 });
  
 
