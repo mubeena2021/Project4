@@ -2,7 +2,7 @@ import React, {  useState }  from 'react'
 //import ReactDOM from 'react-dom'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-//import Axios from "axios";
+
 
 
 function Mynav(){ 
@@ -37,6 +37,7 @@ function Search(){
      console.log(data);
      setResults({symbol: stockSymbol, quantity: quantity, price: data.price, value: value});
      setValue( data.price * quantity)
+    
 }
 
 //ENTER KEY FOR SEARCH
@@ -50,7 +51,7 @@ const keyPressed = ({ key }) => {
 //BUY STOCKS
 const buyStock = async () => {
   let info = {symbol: stockSymbol, quantity: quantity, price: results.price , value: value}
-  await fetch('http://localhost:3002/api/portfolio',  {
+  await fetch('http://localhost:3002/api/:buy',  {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -68,6 +69,7 @@ const buyStock = async () => {
 setQuantity('');
 setResults('');
 stockQuery('');
+setValue('')
 };
 
 
@@ -92,7 +94,7 @@ const updateQuery = (e) => {
           <h4 className="col-2 text-warning"> {results.symbol} </h4>  
           <h6 className="col-2">{quantity}</h6>
           <h6 className="col-2"> {results.price}</h6>  
-          <h6 className="col-2"> {value}</h6>  
+          <h6 className="col-2">{value}</h6>  
 
           <button onClick={buyStock} className=" col-2 w-25 btn btn-dark text-warning"> Buy</button> 
        </div>
@@ -120,7 +122,7 @@ const sellStock = async (item) =>{
  let i= {symbol: item.symbol, quantity: item.quantity, price: item.price, value: item.value}
 
   console.log(i.symbol)
-  await fetch(`'http://localhost:3002/api/portfolio/id/${i.symbol}'`,
+  await fetch(`'http://localhost:3002/api/portfolio/${i.symbol}'`,
  {
   method: "DELETE",
   headers: {
